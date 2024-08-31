@@ -30,7 +30,6 @@ const App = () => {
 export default App;
 
 
-
 // In this example, we have a simple movie search application built using React components.
 
 // In the App component, we have the following state variables:
