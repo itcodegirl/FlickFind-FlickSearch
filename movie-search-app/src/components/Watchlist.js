@@ -1,15 +1,15 @@
 import React from 'react';
 
-const Watchlist = ({ watchlist, onRemove }) => {
+const Watchlist = React.memo(({ watchlist, onRemove }) => {
 	return (
 		<div>
 			<h3>Your Watchlist</h3>
 			{watchlist.length > 0 ? (
 				<ul>
-					{watchlist.map((movie) => (
-						<li key={movie.id}>
-							{movie.title}
-							<button onClick={() => onRemove(movie.id)}>Remove</button>
+					{watchlist.map(({ id, title }) => (
+						<li key={id}>
+							{title}
+							<button onClick={() => onRemove(id)}>Remove</button>
 						</li>
 					))}
 				</ul>
@@ -18,6 +18,7 @@ const Watchlist = ({ watchlist, onRemove }) => {
 			)}
 		</div>
 	);
-};
+});
 
 export default Watchlist;
+
