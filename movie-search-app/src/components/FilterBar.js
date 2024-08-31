@@ -45,3 +45,4 @@ const FilterBar = ({ onFilterChange }) => {
 };
 
 export default FilterBar;
+
