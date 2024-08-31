@@ -31,6 +31,7 @@ const App = () => {
 };
 
 export default App;
+
 // In the App component, we have the following state variables:
 // movies: an array of movie objects returned from the API.
 // selectedMovieId: the ID of the selected movie to display its details.
