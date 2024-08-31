@@ -6,15 +6,11 @@ import { fetchMovies } from './services/tmdb';
 
 const App = () => {
   const [movies, setMovies] = useState([]);
-  const [_, setFilters] = useState({});
+  const [filters, setFilters] = useState({});
 
-  const handleSearch = async (queryParams) => {
-    try {
-      const response = await fetchMovies(queryParams.query, queryParams);
-      setMovies(response.data.results);
-    } catch (error) {
-      console.error('Error fetching movies:', error);
-    }
+  const handleSearch = async (query) => {
+    const response = await fetchMovies(query, filters);
+    setMovies(response.data.results);
   };
 
   const handleFilterChange = (newFilters) => {
