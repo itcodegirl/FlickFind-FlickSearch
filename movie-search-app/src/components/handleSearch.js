@@ -1,21 +1,21 @@
 const handleSearch = (e, query, onSearch) => {
 	e.preventDefault();
 
-	if (!query) return;  // Exit if the query is empty
+	if (!query) return;
 
-	// Initialize an object to store the parsed query parameters
-	const parsedQuery = {};
+	try {
+		const parsedQuery = query.split('&').reduce((acc, param) => {
+			const [key, value] = param.split('=');
+			if (key && value) {
+				acc[key.trim()] = value.trim();
+			}
+			return acc;
+		}, {});
 
-	// Split the query string by '&' and process each key-value pair
-	query.split('&').forEach((param) => {
-		const [key, value] = param.split('=');
-
-		// Only proceed if both key and value are defined
-		if (key && value) {
-			parsedQuery[key.trim()] = value.trim();
-		}
-	});
-
-	// Pass the parsed query object to the onSearch function
-	onSearch(parsedQuery);
+		onSearch(parsedQuery);
+	} catch (error) {
+		console.error('Error parsing query:', error);
+	}
 };
+
+export default handleSearch;
