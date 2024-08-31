@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import SearchBar from './components/SearchBar';
 import MovieList from './components/MovieList';
 import MovieDetail from './components/MovieDetail';
+import Watchlist from './components/Watchlist';
 import { fetchMovies } from './services/tmdb';
 
 const App = () => {
   const [movies, setMovies] = useState([]);
   const [selectedMovieId, setSelectedMovieId] = useState(null);
+  const [watchlist, setWatchlist] = useState([]);
 
   const handleSearch = async (query) => {
     const response = await fetchMovies(query);
@@ -17,14 +19,23 @@ const App = () => {
     setSelectedMovieId(movieId);
   };
 
+  const handleAddToWatchlist = (movie) => {
+    setWatchlist([...watchlist, movie]);
+  };
+
+  const handleRemoveFromWatchlist = (movieId) => {
+    setWatchlist(watchlist.filter((movie) => movie.id !== movieId));
+  };
+
   return (
     <div className="container">
       <h1 className="text-center my-4">Movie Search</h1>
       <SearchBar onSearch={handleSearch} />
+      <Watchlist watchlist={watchlist} onRemove={handleRemoveFromWatchlist} />
       {selectedMovieId ? (
         <MovieDetail movieId={selectedMovieId} />
       ) : (
-        <MovieList movies={movies} onSelectMovie={handleSelectMovie} />
+        <MovieList movies={movies} onSelectMovie={handleSelectMovie} onAddToWatchlist={handleAddToWatchlist} />
       )}
     </div>
   );
