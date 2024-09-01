@@ -6,23 +6,14 @@ const SearchBar = ({ onSearch }) => {
 	const handleSearch = (e) => {
 		e.preventDefault();
 
-		// Exit if the query is empty
-		if (!query) return;
-
-		// Initialize an object to store the parsed query parameters
-		const parsedQuery = {};
-
-		// Split the query string by '&' and process each key-value pair
-		query.split('&').forEach((param) => {
+		const parsedQuery = query.split('&').reduce((acc, param) => {
 			const [key, value] = param.split('=');
-
-			// Only proceed if both key and value are defined
 			if (key && value) {
-				parsedQuery[key.trim()] = value.trim();
+				acc[key.trim()] = value.trim();
 			}
-		});
+			return acc;
+		}, {});
 
-		// Pass the parsed query object to the onSearch function
 		onSearch(parsedQuery);
 	};
 
@@ -43,4 +34,6 @@ const SearchBar = ({ onSearch }) => {
 };
 
 export default SearchBar;
+// Compare this snippet from movie-search-app/src/components/SearchBar.js:
+// import React, { useState } from 'react';
 // In this component, we define a SearchBar functional component that accepts an onSearch prop. The component uses the useState hook to manage the query state. The handleSearch function is responsible for parsing the query string and calling the onSearch function with the parsed query object.
