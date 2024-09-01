@@ -19,13 +19,18 @@ const fetchMovies = async (query, filters = {}) => {
 	}
 };
 
-
-const fetchMovieDetails = (movieId) => {
-	return axios.get(`${BASE_URL}/movie/${movieId}`, {
-		params: {
-			api_key: API_KEY,
-		},
-	});
+const fetchMovieDetails = async (movieId) => {
+	try {
+		const response = await axios.get(`${BASE_URL}/movie/${movieId}`, {
+			params: {
+				api_key: API_KEY,
+			},
+		});
+		return response.data;
+	} catch (error) {
+		console.error('Error fetching movie details:', error);
+		throw error; // Re-throw the error so it can be handled where the function is called
+	}
 };
 
 export { fetchMovies, fetchMovieDetails };
