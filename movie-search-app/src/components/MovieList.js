@@ -1,7 +1,6 @@
-
 import React from 'react';
 
-const MovieList = React.memo(({ movies, onSelectMovie, onAddToWatchlist }) => {
+const MovieList = React.memo(({ movies = [], onSelectMovie, onAddToWatchlist }) => {
 	return (
 		<div className="row">
 			{movies.map(({ id, poster_path, title, overview }) => (
@@ -27,6 +26,7 @@ const MovieList = React.memo(({ movies, onSelectMovie, onAddToWatchlist }) => {
 });
 
 export default MovieList;
+
 // In this example, we have a MovieList component that displays a list of movies.
 // The component accepts an array of movies as a prop and renders each movie as a card.
 // Each movie card includes the movie poster, title, overview, and an "Add to Watchlist" button.
