@@ -19,6 +19,7 @@ const fetchMovies = async (query, filters = {}) => {
 	}
 };
 
+
 const fetchMovieDetails = (movieId) => {
 	return axios.get(`${BASE_URL}/movie/${movieId}`, {
 		params: {
