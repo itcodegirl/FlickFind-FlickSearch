@@ -1,28 +1,25 @@
+// src/components/SearchBar.js
 import React, { useState } from 'react';
 
+export const parseQuery = (queryString) => {
+	if (!queryString) return {};
+
+	return queryString.split('&').reduce((acc, param) => {
+		const [key, value] = param.split('=');
+		if (key && value) {
+			acc[key.trim()] = value.trim();
+		}
+		return acc;
+	}, {});
+};
 const SearchBar = ({ onSearch }) => {
 	const [query, setQuery] = useState('');
 
 	const handleSearch = (e) => {
 		e.preventDefault();
-
-		// Exit if the query is empty
 		if (!query) return;
 
-		// Initialize an object to store the parsed query parameters
-		const parsedQuery = {};
-
-		// Split the query string by '&' and process each key-value pair
-		query.split('&').forEach((param) => {
-			const [key, value] = param.split('=');
-
-			// Only proceed if both key and value are defined
-			if (key && value) {
-				parsedQuery[key.trim()] = value.trim();
-			}
-		});
-
-		// Pass the parsed query object to the onSearch function
+		const parsedQuery = parseQuery(query);
 		onSearch(parsedQuery);
 	};
 
@@ -43,3 +40,7 @@ const SearchBar = ({ onSearch }) => {
 };
 
 export default SearchBar;
+// In this example, we have a SearchBar component that allows users to search for movies based on a query string.
+
+// The component uses the useState hook to manage the query state.
+
