@@ -8,8 +8,8 @@ const MovieDetail = ({ movieId }) => {
 	useEffect(() => {
 		const getMovieDetails = async () => {
 			try {
-				const response = await fetchMovieDetails(movieId);
-				setMovie(response?.data);
+				const movieDetails = await fetchMovieDetails(movieId);
+				setMovie(movieDetails);
 			} catch (error) {
 				setError('Failed to fetch movie details.');
 			}
