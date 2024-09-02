@@ -43,7 +43,7 @@ const App = () => {
     <div className="container">
       <h1 className="text-center my-4">Movie Search</h1>
       <SearchBar onSearch={handleSearch} />
-      <FilterBar onFilterChange={handleFilterChange} />
+      {<FilterBar onFilterChange={handleFilterChange} />}
       {loading && <p>Loading movies...</p>}
       {error && <p className="text-danger">{error}</p>}
       <MovieList movies={movies} />
