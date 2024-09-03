@@ -1,17 +1,6 @@
 // src/components/SearchBar.js
 import React, { useState } from 'react';
 
-export const parseQuery = (queryString) => {
-	if (!queryString) return {};
-
-	return queryString.split('&').reduce((acc, param) => {
-		const [key, value] = param.split('=');
-		if (key && value) {
-			acc[key.trim()] = value.trim();
-		}
-		return acc;
-	}, {});
-};
 const SearchBar = ({ onSearch }) => {
 	const [query, setQuery] = useState('');
 
@@ -19,8 +8,8 @@ const SearchBar = ({ onSearch }) => {
 		e.preventDefault();
 		if (!query) return;
 
-		const parsedQuery = parseQuery(query);
-		onSearch(parsedQuery);
+		console.log('Search Query:', query); // Debugging: Log the search query
+		onSearch(query);
 	};
 
 	return (
@@ -28,7 +17,7 @@ const SearchBar = ({ onSearch }) => {
 			<input
 				type="text"
 				className="form-control mr-sm-2"
-				placeholder="Search (e.g. 'query=Inception&year=2010')"
+				placeholder="Search for movies..."
 				value={query}
 				onChange={(e) => setQuery(e.target.value)}
 			/>
@@ -40,7 +29,4 @@ const SearchBar = ({ onSearch }) => {
 };
 
 export default SearchBar;
-// In this example, we have a SearchBar component that allows users to search for movies based on a query string.
-
-// The component uses the useState hook to manage the query state.
 
