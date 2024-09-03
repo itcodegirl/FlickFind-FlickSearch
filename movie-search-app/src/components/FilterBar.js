@@ -1,6 +1,9 @@
 // src/components/FilterBar.js
 import React, { useState } from 'react';
 import Select from 'react-select';
+import Slider from '@mui/material/Slider';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 
 const genresOptions = [
 	{ value: '28', label: 'Action' },
@@ -27,34 +30,41 @@ const genresOptions = [
 
 const FilterBar = ({ onFilterChange }) => {
 	const [selectedGenres, setSelectedGenres] = useState([]);
+	const [rating, setRating] = useState([0, 10]);
 
 	const handleApplyFilters = () => {
 		const filters = {
 			with_genres: selectedGenres.map(genre => genre.value).join(','),
+			'vote_average.gte': rating[0],
+			'vote_average.lte': rating[1],
 		};
 		onFilterChange(filters);
 	};
 
 	return (
-		<div className="mb-3">
-			<div className="form-row">
-				<div className="col">
-					<Select
-						isMulti
-						options={genresOptions}
-						className="basic-multi-select"
-						classNamePrefix="select"
-						placeholder="Select Genres"
-						onChange={setSelectedGenres}
-					/>
-				</div>
-				<div className="col">
-					<button className="btn btn-primary" onClick={handleApplyFilters}>
-						Apply Filters
-					</button>
-				</div>
-			</div>
-		</div>
+		<Box sx={{ mb: 3 }}>
+			<Select
+				isMulti
+				options={genresOptions}
+				placeholder="Select Genres"
+				onChange={setSelectedGenres}
+				className="basic-multi-select"
+				classNamePrefix="select"
+				sx={{ mb: 2 }}
+			/>
+			<Slider
+				value={rating}
+				onChange={(e, newValue) => setRating(newValue)}
+				valueLabelDisplay="auto"
+				min={0}
+				max={10}
+				step={0.1}
+				sx={{ mb: 2 }}
+			/>
+			<Button variant="contained" onClick={handleApplyFilters}>
+				Apply Filters
+			</Button>
+		</Box>
 	);
 };
 
