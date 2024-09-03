@@ -4,7 +4,7 @@ import SearchBar from './components/SearchBar';
 import MovieList from './components/MovieList';
 import FilterBar from './components/FilterBar';
 import { fetchMovies } from './services/tmdb';
-import { ClipLoader } from 'react-spinners'; // Correctly importing ClipLoader
+import { ClipLoader } from 'react-spinners';
 
 const App = () => {
   const [movies, setMovies] = useState([]);
