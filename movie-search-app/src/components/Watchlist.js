@@ -1,3 +1,4 @@
+// src/components/Watchlist.js
 import React from 'react';
 
 const Watchlist = React.memo(({ watchlist, onRemove }) => {
@@ -21,4 +22,5 @@ const Watchlist = React.memo(({ watchlist, onRemove }) => {
 });
 
 export default Watchlist;
+
 
