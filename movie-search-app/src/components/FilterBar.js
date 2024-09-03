@@ -1,13 +1,36 @@
+// src/components/FilterBar.js
 import React, { useState } from 'react';
+import Select from 'react-select';
+
+const genresOptions = [
+	{ value: '28', label: 'Action' },
+	{ value: '12', label: 'Adventure' },
+	{ value: '16', label: 'Animation' },
+	{ value: '35', label: 'Comedy' },
+	{ value: '80', label: 'Crime' },
+	{ value: '99', label: 'Documentary' },
+	{ value: '18', label: 'Drama' },
+	{ value: '10751', label: 'Family' },
+	{ value: '14', label: 'Fantasy' },
+	{ value: '36', label: 'History' },
+	{ value: '27', label: 'Horror' },
+	{ value: '10402', label: 'Music' },
+	{ value: '9648', label: 'Mystery' },
+	{ value: '10749', label: 'Romance' },
+	{ value: '878', label: 'Science Fiction' },
+	{ value: '10770', label: 'TV Movie' },
+	{ value: '53', label: 'Thriller' },
+	{ value: '10752', label: 'War' },
+	{ value: '37', label: 'Western' },
+	// Add more genres as needed
+];
 
 const FilterBar = ({ onFilterChange }) => {
-	const [releaseYear, setReleaseYear] = useState('');
-	const [minRating, setMinRating] = useState('');
+	const [selectedGenres, setSelectedGenres] = useState([]);
 
 	const handleApplyFilters = () => {
 		const filters = {
-			primary_release_year: releaseYear,
-			'vote_average.gte': minRating,
+			with_genres: selectedGenres.map(genre => genre.value).join(','),
 		};
 		onFilterChange(filters);
 	};
@@ -16,22 +39,13 @@ const FilterBar = ({ onFilterChange }) => {
 		<div className="mb-3">
 			<div className="form-row">
 				<div className="col">
-					<input
-						type="number"
-						className="form-control"
-						placeholder="Release Year"
-						value={releaseYear}
-						onChange={(e) => setReleaseYear(e.target.value)}
-					/>
-				</div>
-				<div className="col">
-					<input
-						type="number"
-						step="0.1"
-						className="form-control"
-						placeholder="Minimum Rating"
-						value={minRating}
-						onChange={(e) => setMinRating(e.target.value)}
+					<Select
+						isMulti
+						options={genresOptions}
+						className="basic-multi-select"
+						classNamePrefix="select"
+						placeholder="Select Genres"
+						onChange={setSelectedGenres}
 					/>
 				</div>
 				<div className="col">
