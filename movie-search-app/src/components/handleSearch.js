@@ -14,3 +14,4 @@ const handleSearch = (e, query, onSearch) => {
 };
 
 export default handleSearch;
+
