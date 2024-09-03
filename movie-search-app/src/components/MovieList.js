@@ -1,3 +1,4 @@
+// src/components/MovieList.js
 import React from 'react';
 
 const MovieList = ({ movies = [], onAddToWatchlist }) => {
@@ -15,3 +16,4 @@ const MovieList = ({ movies = [], onAddToWatchlist }) => {
 };
 
 export default MovieList;
+
