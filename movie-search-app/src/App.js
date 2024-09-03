@@ -28,8 +28,8 @@ const App = () => {
       setError('');
       try {
         const response = await fetchMovies(query, filters, currentPage);
-        setMovies(response);
-        setTotalPages(response.total_pages); // Update total pages
+        setMovies(response.results || []);
+        setTotalPages(response.total_pages || 1); // Validate total_pages from response
       } catch (error) {
         setError('Failed to fetch movies. Please check your internet connection and try again.');
       } finally {
@@ -69,16 +69,22 @@ const App = () => {
       ) : (
         <>
           {error && <p className="text-danger">{error}</p>}
-          <MovieList movies={movies} />
-          <div className="pagination-controls">
-            <button onClick={handlePreviousPage} disabled={currentPage === 1}>
-              Previous
-            </button>
-            <span>{`Page ${currentPage} of ${totalPages}`}</span>
-            <button onClick={handleNextPage} disabled={currentPage === totalPages}>
-              Next
-            </button>
-          </div>
+          {movies.length === 0 && !error ? (
+            <p>No movies found for the search query.</p>
+          ) : (
+            <>
+              <MovieList movies={movies} />
+              <div className="pagination-controls">
+                <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+                  Previous
+                </button>
+                <span>{`Page ${currentPage} of ${totalPages}`}</span>
+                <button onClick={handleNextPage} disabled={currentPage >= totalPages}>
+                  Next
+                </button>
+              </div>
+            </>
+          )}
         </>
       )}
     </div>
