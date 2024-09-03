@@ -1,5 +1,8 @@
 // src/components/SearchBar.js
 import React, { useState } from 'react';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 
 const SearchBar = ({ onSearch }) => {
 	const [query, setQuery] = useState('');
@@ -8,23 +11,23 @@ const SearchBar = ({ onSearch }) => {
 		e.preventDefault();
 		if (!query) return;
 
-		console.log('Search Query:', query); // Debugging: Log the search query
 		onSearch(query);
 	};
 
 	return (
-		<form onSubmit={handleSearch} className="form-inline my-2 my-lg-0">
-			<input
-				type="text"
-				className="form-control mr-sm-2"
+		<Box component="form" onSubmit={handleSearch} sx={{ display: 'flex', alignItems: 'center' }}>
+			<TextField
+				variant="outlined"
+				fullWidth
 				placeholder="Search for movies..."
 				value={query}
 				onChange={(e) => setQuery(e.target.value)}
+				sx={{ mr: 2 }}
 			/>
-			<button className="btn btn-outline-success my-2 my-sm-0" type="submit">
+			<Button variant="contained" type="submit">
 				Search
-			</button>
-		</form>
+			</Button>
+		</Box>
 	);
 };
 
