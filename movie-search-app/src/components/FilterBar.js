@@ -48,13 +48,12 @@ const FilterBar = ({ onFilterChange }) => {
 				options={genresOptions}
 				placeholder="Select Genres"
 				onChange={setSelectedGenres}
-				className="basic-multi-select"
 				classNamePrefix="select"
 				sx={{ mb: 2 }}
 			/>
 			<Slider
 				value={rating}
-				onChange={(e, newValue) => setRating(newValue)}
+				onChange={(_, newValue) => setRating(newValue)}
 				valueLabelDisplay="auto"
 				min={0}
 				max={10}
