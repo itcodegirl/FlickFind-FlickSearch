@@ -14,10 +14,10 @@ const fetchMovies = async (query, filters = {}, page = 1) => {
 				...filters,
 			},
 		});
-		return response.data.results;
+		return response.data;  // Return the entire response data, not just the results
 	} catch (error) {
 		console.error("Error fetching movies:", error);
-		return [];
+		return { results: [], total_pages: 1 };  // Return a default structure
 	}
 };
 
